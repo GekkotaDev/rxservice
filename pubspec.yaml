@@ -1,9 +1,9 @@
-name: streamstate
+name: rxservice
 description: A simple reactive service library for Dart and Flutter. Use in 
   conjuction with get_it and StreamBuilder for a complete state management 
   solution.
 version: 0.0.1
-repository: https://github.com/gekkotadev/streamstate
+repository: https://github.com/gekkotadev/rxservice
 
 environment:
   sdk: ^3.0.0

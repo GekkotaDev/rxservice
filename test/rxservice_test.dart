@@ -1,4 +1,4 @@
-import "package:streamstate/streamstate.dart";
+import "package:rxservice/rxservice.dart";
 import "package:test/test.dart";
 
 class CounterService extends Service<int> {

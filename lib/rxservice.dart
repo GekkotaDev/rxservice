@@ -5,4 +5,5 @@
 /// complete state management solution.
 library;
 
+export "src/hooks.dart";
 export "src/service.dart";

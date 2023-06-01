@@ -2,7 +2,7 @@ import "package:rxservice/rxservice.dart";
 import "package:test/test.dart";
 
 class FibonacciService extends Service<int> {
-  final memoFibonacci = createMemo<int, (int,)>();
+  final memoFibonacci = computed<int, (int,)>();
 
   FibonacciService() : super(0);
 

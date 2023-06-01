@@ -5,3 +5,7 @@
 ## 0.1.0
 
 - Added unbenchmarked `createMemo` hook.
+
+## 0.2.0
+
+- Updated `createMemo` to `computed` hook.

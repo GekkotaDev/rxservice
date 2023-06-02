@@ -34,6 +34,9 @@ abstract class Service<T> {
   /// results.
   ValueStream<T> get $ => _state.stream;
 
+  /// Alias to [$].
+  ValueStream<T> call() => $;
+
   /// A reference to the current [state]. Consumers of this property receive a
   /// non-reactive updated reference to the [state] but can update the [state]
   /// with the [Service] reacting by updating the stream.

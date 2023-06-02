@@ -9,3 +9,7 @@
 ## 0.2.0
 
 - Updated `createMemo` to `computed` hook.
+
+## 0.2.1
+
+- Made services callable (aliases to `$`)

@@ -2,6 +2,7 @@ import "package:rxservice/rxservice.dart";
 import "package:test/test.dart";
 
 class FibonacciService extends Service<int> {
+  int count = 0;
   final memoFibonacci = computed<int, (int,)>();
 
   FibonacciService() : super(0);
@@ -14,7 +15,7 @@ class FibonacciService extends Service<int> {
       var b = 1;
 
       while (b < n) {
-        print("a=$a b=$b");
+        count++;
         final c = a + b;
         a = b;
         b = c;
@@ -33,11 +34,13 @@ void main() {
     print("start run A");
     sequencer.loopUntil(42);
     assert(sequencer.state == 34);
+    assert(sequencer.count == 9);
     print("end run A");
 
     print("start run B");
     sequencer.loopUntil(42);
     assert(sequencer.state == 34);
+    assert(sequencer.count == 9);
     print("end run B");
   });
 }

@@ -2,7 +2,7 @@ name: rxservice
 description: A simple reactive service library for Dart and Flutter. Use in 
   conjuction with get_it and StreamBuilder for a complete state management 
   solution.
-version: 0.2.1
+version: 0.3.0
 repository: https://github.com/gekkotadev/rxservice
 
 environment:

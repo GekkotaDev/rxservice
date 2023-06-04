@@ -13,3 +13,8 @@
 ## 0.2.1
 
 - Made services callable (aliases to `$`)
+
+## 0.3.0
+
+- Added the effect hook.
+- Service `call()` method now aliased to `state`

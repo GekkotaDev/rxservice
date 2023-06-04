@@ -1,5 +1,7 @@
 import "package:rxdart/rxdart.dart";
 
+import "package:rxservice/src/hooks.dart";
+
 /// An abstract base class for implementing [Service]s.
 ///
 /// @example
@@ -19,6 +21,7 @@ import "package:rxdart/rxdart.dart";
 /// }
 /// ```
 abstract class Service<T> {
+  final Set<Function()> _sideEffects = {};
   late final BehaviorSubject<T> _state;
 
   Service(T state) {
@@ -34,18 +37,27 @@ abstract class Service<T> {
   /// results.
   ValueStream<T> get $ => _state.stream;
 
-  /// Alias to [$].
-  ValueStream<T> call() => $;
+  /// An alias to [state].
+  T call() => state;
 
-  /// A reference to the current [state]. Consumers of this property receive a
-  /// non-reactive updated reference to the [state] but can update the [state]
-  /// with the [Service] reacting by updating the stream.
-  ///
-  /// Note that while this will not rerun the consumer with the updated state, a
-  /// consequence of this behaviour will be that the state will eventually
-  /// become stale and outdated.
-  T get state => _state.value;
-  set state(T value) => _state.add(value);
+  /// A reference to the current [state]. Consumers of this property receive am
+  /// updated reference to the [state] but can update the [state] with the
+  /// [Service] reacting by updating the stream.
+  T get state {
+    final effect = effects.lastOrNull;
+
+    if (effect != null) _sideEffects.add(effect);
+
+    return _state.value;
+  }
+
+  set state(T value) {
+    _state.add(value);
+
+    for (final sideEffect in _sideEffects) {
+      sideEffect();
+    }
+  }
 
   /// Update the [state] by deriving it from the previous [state], causing the
   /// [Service] to react by updating the stream.

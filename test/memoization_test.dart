@@ -31,16 +31,12 @@ void main() {
     // TODO: Find performance profiling solely for Dart.
     final sequencer = FibonacciService();
 
-    print("start run A");
     sequencer.loopUntil(42);
     assert(sequencer.state == 34);
     assert(sequencer.count == 9);
-    print("end run A");
 
-    print("start run B");
     sequencer.loopUntil(42);
     assert(sequencer.state == 34);
     assert(sequencer.count == 9);
-    print("end run B");
   });
 }

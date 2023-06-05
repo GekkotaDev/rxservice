@@ -1,6 +1,7 @@
 import "package:test/test.dart";
 
 import "package:rxservice/rxservice.dart";
+import "package:rxservice/compose.dart";
 
 class CounterService extends Service<int> {
   CounterService() : super(0);

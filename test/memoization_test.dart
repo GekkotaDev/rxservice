@@ -1,5 +1,7 @@
-import "package:rxservice/rxservice.dart";
 import "package:test/test.dart";
+
+import "package:rxservice/rxservice.dart";
+import "package:rxservice/compose.dart";
 
 class FibonacciService extends Service<int> {
   int count = 0;

@@ -18,3 +18,8 @@
 
 - Added the effect hook.
 - Service `call()` method now aliased to `state`
+
+## 0.4.0
+
+- Added signals
+- Separated hooks into their own library.

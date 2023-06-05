@@ -1,6 +1,15 @@
 import "package:rxdart/rxdart.dart";
 
-import "package:rxservice/src/hooks.dart";
+/// A side effect of state change.
+typedef Effect = Function();
+
+/// A list of side effects.
+typedef Effects = List<Effect>;
+
+/// **DO NOT DIRECTLY ACCESS**
+///
+/// The side effects that occur when a given state changes.
+final Effects effects = [];
 
 /// An abstract base class for implementing [Service]s.
 ///
@@ -21,6 +30,7 @@ import "package:rxservice/src/hooks.dart";
 /// }
 /// ```
 abstract class Service<T> {
+  /// A set of side effects that occur when the [state] changes.
   final Set<Function()> _sideEffects = {};
   late final BehaviorSubject<T> _state;
 
@@ -40,7 +50,7 @@ abstract class Service<T> {
   /// An alias to [state].
   T call() => state;
 
-  /// A reference to the current [state]. Consumers of this property receive am
+  /// A reference to the current [state]. Consumers of this property receive an
   /// updated reference to the [state] but can update the [state] with the
   /// [Service] reacting by updating the stream.
   T get state {
@@ -54,9 +64,8 @@ abstract class Service<T> {
   set state(T value) {
     _state.add(value);
 
-    for (final sideEffect in _sideEffects) {
-      sideEffect();
-    }
+    // ignore: avoid_function_literals_in_foreach_calls
+    _sideEffects.forEach((sideEffect) => sideEffect());
   }
 
   /// Update the [state] by deriving it from the previous [state], causing the

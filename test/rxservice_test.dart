@@ -1,52 +1,41 @@
-import "package:rxservice/rxservice.dart";
 import "package:test/test.dart";
+
+import "package:rxservice/rxservice.dart";
 
 class CounterService extends Service<int> {
   CounterService() : super(0);
 
-  void increment(int count) =>
-      setState((previousState) => previousState + count);
+  final memoSquare = computed<int, (int,)>();
 
-  void decrement(int count) =>
-      setState((previousState) => previousState - count);
-
+  void increment(int n) => state = state + n;
+  void decrement(int n) => state = state - n;
   void reset() => state = 0;
+  void square() {
+    final (compute) = memoSquare;
+    setState((count) => compute((count,), () => count * count));
+  }
 }
 
 void main() {
-  group("[isolated tests]", () {
-    test("increments counter", () {
-      final counter = CounterService();
-      assert(counter.state == 0);
-      counter.increment(1);
-      assert(counter.state == 1);
-    });
+  final counter = CounterService();
 
-    test("decrements counter", () {
-      final counter = CounterService();
-      assert(counter.state == 0);
-      counter.decrement(1);
-      assert(counter.state == -1);
-    });
+  test("increments counter", () {
+    counter.increment(4);
+    assert(counter.state == 4);
   });
 
-  group("[stateful tests]", () {
-    final counter = CounterService();
+  test("squares counter", () {
+    counter.square();
+    assert(counter.state == 16);
+  });
 
-    test("increments counter", () {
-      assert(counter.state == 0);
-      counter.increment(4);
-      assert(counter.state == 4);
-    });
+  test("decrements counter", () {
+    counter.decrement(6);
+    assert(counter.state == 10);
+  });
 
-    test("decrements counter", () {
-      counter.decrement(2);
-      assert(counter.state == 2);
-    });
-
-    test("resets counter", () {
-      counter.reset();
-      assert(counter.state == 0);
-    });
+  test("resets counter", () {
+    counter.reset();
+    assert(counter.state == 0);
   });
 }

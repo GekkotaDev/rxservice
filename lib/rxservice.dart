@@ -6,3 +6,4 @@
 library rxservice;
 
 export "src/service.dart";
+export "src/computed.dart";

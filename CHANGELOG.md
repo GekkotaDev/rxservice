@@ -23,3 +23,7 @@
 
 - Added signals
 - Separated hooks into their own library.
+
+## 0.5.0
+
+- Refactored codebase to move complexity behind `rxs`

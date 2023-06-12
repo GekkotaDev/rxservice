@@ -1,15 +1,5 @@
-import "package:rxdart/rxdart.dart";
-
-/// A side effect of state change.
-typedef Effect = Function();
-
-/// A list of side effects.
-typedef Effects = List<Effect>;
-
-/// **DO NOT DIRECTLY ACCESS**
-///
-/// The side effects that occur when a given state changes.
-final Effects effects = [];
+import "package:rxs/rxdart.dart";
+import "package:rxs/rxs.dart";
 
 /// An abstract base class for implementing [Service]s.
 ///
@@ -30,57 +20,22 @@ final Effects effects = [];
 /// }
 /// ```
 abstract class Service<T> {
-  /// A set of side effects that occur when the [state] changes.
-  final Set<Function()> _sideEffects = {};
-  late final BehaviorSubject<T> _state;
+  late final ValueStream<T> $;
+  late final Accessor<T> _getter;
+  late final Setter<T> _setter;
 
-  Service(T state) {
-    this._state = BehaviorSubject.seeded(state);
+  Service(T value) {
+    final (getter, setter) = signal(value);
+    _getter = getter;
+    _setter = setter;
+
+    $ = stream(() => _getter());
   }
 
-  /// A [Stream] of the latest [state]. The [state] may be consumed by passing a
-  /// callback function to the listen method of [$] which will implicitly rerun
-  /// the consumer updated with the latest [state].
-  ///
-  /// If this is behaviour is not desired then the consumer may directly get the
-  /// current [state] property or otherwise refactor to acheive the desired
-  /// results.
-  ValueStream<T> get $ => _state.stream;
+  T get state => _getter();
+  set state(T value) => _setter(value);
 
-  /// An alias to [state].
-  T call() => state;
-
-  /// A reference to the current [state]. Consumers of this property receive an
-  /// updated reference to the [state] but can update the [state] with the
-  /// [Service] reacting by updating the stream.
-  T get state {
-    final effect = effects.lastOrNull;
-
-    if (effect != null) _sideEffects.add(effect);
-
-    return _state.value;
-  }
-
-  set state(T value) {
-    _state.add(value);
-
-    // ignore: avoid_function_literals_in_foreach_calls
-    _sideEffects.forEach((sideEffect) => sideEffect());
-  }
-
-  /// Update the [state] by deriving it from the previous [state], causing the
-  /// [Service] to react by updating the stream.
-  void setState(T Function(T state) setter, {bool forceUpdate = false}) {
-    T nextState = setter(state);
-
-    if (forceUpdate) {
-      state = nextState;
-      return;
-    }
-
-    if (state != nextState) {
-      state = nextState;
-      return;
-    }
+  void setState(T Function(T previousState) setter) {
+    state = setter(state);
   }
 }

@@ -27,3 +27,7 @@
 ## 0.5.0
 
 - Refactored codebase to move complexity behind `rxs`
+
+## 0.5.1
+
+- Updated dependencies list in `pubspec.yaml`

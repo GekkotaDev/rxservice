@@ -1,0 +1,14 @@
+{
+  "Service": {
+    "prefix": "Service",
+    "body": [
+      "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Service extends Service<$1> {",
+      "\t${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Service() : super($0);",
+      "}",
+    ],
+    "description": [
+      "Implement a Service"
+    ],
+    "scope": "dart",
+  }
+}

@@ -31,3 +31,7 @@
 ## 0.5.1
 
 - Updated dependencies list in `pubspec.yaml`
+
+## 0.5.2
+
+- Updated version constraints

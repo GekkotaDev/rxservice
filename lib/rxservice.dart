@@ -1,9 +1,7 @@
-/// A simple reactive service library for Dart and Flutter.
-///
-/// Use in conjuction with [get_it](https://pub.dev/packages/get_it) or your
-/// preferred method of Dependency Injection and with StreamBuilder for a
-/// complete state management solution.
+/// A simple reactive service library for Dart and Flutter applications. Comes
+/// with a dependency injection library out of the box.
 library rxservice;
 
-export "src/service.dart";
 export "src/computed.dart";
+export "src/injector.dart";
+export "src/service.dart";

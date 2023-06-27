@@ -35,3 +35,7 @@
 ## 0.5.2
 
 - Updated version constraints
+
+## 0.6.0
+
+- New `Injector` API.

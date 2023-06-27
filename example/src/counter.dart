@@ -1,6 +1,6 @@
 import "package:rxservice/rxservice.dart";
 
-class CounterService extends Service<int> {
+final class CounterService extends Service<int> {
   CounterService() : super(0);
 
   void increment(int count) =>

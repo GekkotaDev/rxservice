@@ -11,10 +11,12 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-A simple reactive service library for Dart and Flutter.
+# rxservice
 
-## Additional information
+A simple reactive service library for Dart and Flutter applications. Comes with
+a dependency injection library out of the box.
 
-Licensed under the BSD 3-Clause license. This is not a complete state management
-solution, it is recommended to use this with `get_it` and `StreamBuilder` for a
-state management solution.
+## Additional Information
+
+Licensed under the BSD 3-Clause license. Use in conjuction with `StreamBuilder`
+for Flutter apps.
